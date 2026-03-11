@@ -261,6 +261,7 @@ Refine.OpenProjectUI.prototype._renderProjects = function(data) {
       '<table class="tablesorter-blue list-table"><thead><tr>' +
       '<th></th>' +
       '<th></th>' +
+      '<th></th>'+//+$.i18n('core-index-open/duplicate-proj')+'</th>'+
       '<th>'+$.i18n('core-index-open/last-mod')+'</th>' +
       '<th>'+$.i18n('core-index-open/name')+'</th>' +
       '<th>'+$.i18n('core-index-open/tags')+'</th>' + 
@@ -321,11 +322,25 @@ Refine.OpenProjectUI.prototype._renderProjects = function(data) {
         $(tr.insertCell(tr.cells.length))
       );
       
+      var duplicateProjectLink = $('<a></a>')
+      .text($.i18n('core-index-open/duplicate-proj'))
+      .attr("href", "javascript:{}")
+      
+      //when duplicate project is finished, it will be called here
+
+      //.on('click',function() {
+      //    new EditMetadataDialog(project, $(this).parent().parent());
+      //})
+      .appendTo($(tr.insertCell(tr.cells.length)));
+
+
+      
       $('<div></div>')
       .html('<span style="display:none">' + project.modified + '</span>' + project.date)
       .addClass("last-modified")
       .appendTo($(tr.insertCell(tr.cells.length)));
       
+
       var nameLink = $('<a></a>')
       .addClass("project-name")
       .addClass("searchable")
@@ -377,7 +392,8 @@ Refine.OpenProjectUI.prototype._renderProjects = function(data) {
         headers : {
             0: { sorter: false },
             1: { sorter: false },
-            2: { sorter: "text" }
+            2: { sorter: false },
+            3: { sorter: "text" }
         },
         sortList: [[2,1]],
         widthFixed: false
